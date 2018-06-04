@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	<meta charset="UTF-8">		
+	<title>Test</title>
+	
+	<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+        <div class="container">
+
+            <header class="header">
+                <form name="addMeetup">
+                    <input type="button" value="Добавить" class="button">
+                    <input type="button" value="Обновить" class="button">		
+                    <input type="text" class="search" placeholder="Событие, дата или участник">
+                    <img src="img/search.svg" alt="Search" class="img_search">
+                </form>
+            </header>
+
+            <main class="main">
+                <nav class="menu">					
+                    <input type="button" value="previosMonth" class="previosMonth nav_button">
+                    <span class="todayDate"></span>
+                    <input type="button" value="nextMonth" class="nextMonth nav_button">
+                    <input type="button" value="Сегодня" class="today nav_button">
+                </nav>
+                <section class="calendar" id="calendar"></section>
+            </main>
+            
+        </div>        		
+			
+    <script src="script.js"></script>							
+	</body>
+	</html>

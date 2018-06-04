@@ -1,0 +1,164 @@
+html, body, div, span, form, header, menu, nav, section { 
+    /*
+    * reset styles
+    */
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font-weight: normal;
+	vertical-align: baseline;
+	background: transparent;
+}
+
+html {
+	box-sizing: border-box;
+}
+
+.header .img_search {
+    width: 14px;
+    height: 14px;
+}
+
+.container{
+    background-color: #ffffff;
+}
+
+.header {
+    background-color: #f4f4f4;
+    min-height: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-bottom: 2px solid rgba(224,224,224);
+    box-shadow:  0 2px rgba(224,224,224,0.5);
+    font-size: 80%;
+}
+
+.header .button {
+    background-color: #006eca; 
+    outline:none;
+    border: none;
+    border-radius: 3px;
+    color: #ffffff;
+    width: 80px !important;
+    height: 26px;
+    margin-right: 10px;
+    margin-top: 57px;
+    float: left; 
+    font-weight: 600;
+}
+
+.header .button:active {
+    background: #ffffff;
+    color:#006eca;
+}
+.header .button:hover {
+    box-shadow: inset 0 0 6px;
+}
+
+.header .search {
+    margin-top: 57px;
+    float: right;
+    width: 200px;
+}
+.header .img_search {
+    margin-top: 60px;
+    margin-right: 10px;
+    float: right;
+}
+
+.main {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+    
+.menu {
+    padding: 16px 0 14px 0;
+}
+
+.nav_button {
+    min-width: 14px;
+    min-height: 14px;
+    padding: 0;
+    margin-right: 10px;
+    font-size: 80%;
+    background-color: #ffffff;
+    color: rgba(102,102,102);
+    border: 2px solid rgba(102,102,102,0.7);
+    border-radius: 3px;
+    outline:none;
+}
+
+.nav_button:active {
+    background: rgba(102,102,102);
+    color:#ffffff;
+}
+
+.todayDate {
+    position: relative;
+    top: 2px;
+    left: -4px;
+}
+
+.today{
+    padding: 0 8px;
+}
+
+.calendar {
+    width: 100%;
+    height: 590px;
+    font-size: 80%;
+    /*border: 1px solid #ebebeb;*/
+}
+.row{
+    display: flex;
+    border-left: 1px solid #ebebeb;
+    border-right: 1px solid #ebebeb;
+}
+
+.first_row{
+    border-top: 1px solid #ebebeb;
+}
+.lasr_row{
+    border-bottom: 1px solid #ebebeb;
+}
+.cell{
+    width: 128%;
+    height: 118px;
+    border: 1px solid #ebebeb;
+    padding: 5px;
+    flex-grow: 1;
+}
+
+.monthPre {
+    color: gray;
+    text-align: center;
+}
+
+.monthNow {
+    color: blue;
+    text-align: center;
+}
+
+.dayNow {
+    border: 2px solid black;
+    color: #FF0000;
+    text-align: center;
+}
+
+.calendar td {
+    htmlContent: 2px;
+    width: 40px;
+}
+
+.monthNow th {
+    background-color: #000000;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.dayNames {
+    background: #0FF000;
+    color: #FFFFFF;
+    text-align: center;
+}
