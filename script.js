@@ -62,7 +62,6 @@ function displayCalendar(date) {
     while (weekdays > 0) {
       htmlContent += `<td class='monthPre'>
       <span>${dayNames[daysCounter++]}</span>,
-      <!--<span>${weekdays}</span>-->
       </td>`;
 
       // used in next loop.
@@ -123,6 +122,23 @@ function getFirstDayOfMonth() {
 function getActivity(day) {
     return activitiesJSON[day];
 };
+
+function fixCellsStyle () {
+    let abc = document.querySelectorAll('.activity');
+    let cellsList = [];
+
+    for(let i=0; i<abc.length; i++) {
+        if(abc[i].textContent != '') {
+            cellsList.push(abc[i]);
+        }
+    }
+    for(let j=0; j<cellsList.length; j++){
+        cellsList[j].parentElement.classList.add("cellWithDate");
+    }
+    
+}
+
+
   
 activitiesJSON = {
     "9": 'Напиться!',
@@ -133,3 +149,4 @@ activitiesJSON = {
   
 displayCalendar(new Date());
 setNavValues();
+fixCellsStyle();
