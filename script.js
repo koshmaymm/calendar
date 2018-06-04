@@ -1,91 +1,3 @@
-function displayCalendar(date) {
-
-    let htmlContent = "";
-    let FebNumberOfDays = "";
-    let counter = 1;
-  
-    //var dateNow = new Date();
-    const month = date.getMonth();
-  
-    const nextMonth = month + 1; //+1; //Used to match up the current month with the correct start date.
-    const prevMonth = month - 1;
-    const day = date.getDate();
-    //const year = date.getFullYear();
-  
-    // names of months and week days.
-    //const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
-    const dayNames = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
-    const dayPerMonth = ["31", "" + FebNumberOfDays + "", "31", "30", "31", "30", "31", "31", "30", "31", "30", "31"];
-  
-  
-    // days in previous month and next one , and day of week.
-    // var nextDate = getFirstDayOfMonth();//new Date(nextMonth +' 1 ,'+year);
-  
-    let weekdays = getFirstDayOfMonth(); //getLocalDay(nextDate);
-    let weekdays2 = weekdays
-    const numOfDays = dayPerMonth[month];
-    let daysCounter = 0;
-  
-    // this leave a white space for days of pervious month.
-    while (weekdays > 0) {
-      htmlContent += `<td class='monthPre'>
-      <span>${dayNames[daysCounter++]}</span>,
-      <span>${weekdays}</span>
-      </td>`;
-
-      // used in next loop.
-      weekdays--;
-    }
-  
-    // loop to build the calander body.
-    while (counter <= numOfDays) {
-      let className = counter == day ? 'dayNow' : 'monthNow';
-      // When to start new line.
-      if (weekdays2 > 6) {
-        weekdays2 = 0;
-        htmlContent += "</tr><tr>";
-      }
-  
-      // if counter is current day.
-      htmlContent +=    `<td class=${className}>
-                        <span>${daysCounter < 7 ? dayNames[daysCounter++] : ''}</span>
-                        ${counter}
-                        <div class='activity'>${getActivity(counter) || ''}</div>
-                        </td>`
-  
-      weekdays2++;
-      counter++;
-    }
-
-    var calendarBody = "<table class='calendar'>";
-        calendarBody += "<tr>";
-        calendarBody += htmlContent;
-        calendarBody += "</tr></table>";
-        // set the content of div .
-    document.getElementById("calendar").innerHTML = calendarBody;   
-}
-  
-function getLocalDay(date) {
-    let day = date.getDay();
-    if (day == 0) {
-      day = 7;
-    }
-    return day;
-}
-  
-function getFirstDayOfMonth() {
-    const date = new Date(),
-        y = date.getFullYear(),
-        m = date.getMonth();
-    let firstDay = new Date(y, m, 1);
-    return getLocalDay(firstDay) - 1;
-}
-  
-
-function getActivity(day) {
-    return activitiesJSON[day];
-};
-
 function setNavValues () {
     let previosMonthButton = document.querySelector('.previosMonth');
     let nextMonthButton = document.querySelector('.nextMonth');
@@ -116,11 +28,107 @@ function setNavValues () {
         }
     todayDate.innerHTML = mm + " " + yy;
 }
+
+function displayCalendar(date) {
+
+    let htmlContent = "";
+    let FebNumberOfDays = "";
+    let counter = 1;
+  
+    //var dateNow = new Date();
+    const month = date.getMonth();
+  
+    const nextMonth = month + 1; //+1; //Used to match up the current month with the correct start date.
+    const prevMonth = month - 1;
+    const day = date.getDate();
+    //const year = date.getFullYear();
+  
+    // names of months and week days.
+    //const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+    const dayNames = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+    const dayPerMonth = ["31", "" + FebNumberOfDays + "", "31", "30", "31", "30", "31", "31", "30", "31", "30", "31"];
+  
+  
+    // days in previous month and next one , and day of week.
+    // var nextDate = getFirstDayOfMonth();//new Date(nextMonth +' 1 ,'+year);
+  
+    let weekdays = getFirstDayOfMonth(); //getLocalDay(nextDate);
+    let weekdays2 = weekdays
+    const numOfDays = dayPerMonth[month];
+    let daysCounter = 0;
+    let daysAfterMonth = weekdays2 + +numOfDays;
+  
+    // this leave a white space for days of pervious month.
+    while (weekdays > 0) {
+      htmlContent += `<td class='monthPre'>
+      <span>${dayNames[daysCounter++]}</span>,
+      <!--<span>${weekdays}</span>-->
+      </td>`;
+
+      // used in next loop.
+      weekdays--;
+    }
+  
+    // loop to build the calander body.
+    while (counter <= numOfDays) {
+      let className = counter == day ? 'dayNow' : 'monthNow';
+      // When to start new line.
+      if (weekdays2 > 6) {
+        weekdays2 = 0;
+        htmlContent += "</tr><tr>";
+      }
+  
+      // if counter is current day.
+      htmlContent +=    `<td class=${className}>
+                        <span>${daysCounter < 7 ? dayNames[daysCounter++] : ''}</span>
+                        ${counter}
+                        <span class='activity'>${getActivity(counter) || ''}</span>
+                        </td>`
+  
+      weekdays2++;
+      counter++;
+    }
+
+    while (daysAfterMonth < 35){
+        htmlContent += `<td></td>`;
+        daysAfterMonth++;
+    }
+    
+
+    var calendarBody = `<table class='myTable'>`;
+        calendarBody += `<tr>`;
+        calendarBody += htmlContent;
+        calendarBody += `</tr></table>`;
+        // set the content of div .
+    document.getElementById("calendar").innerHTML = calendarBody;   
+}
+  
+function getLocalDay(date) {
+    let day = date.getDay();
+    if (day == 0) {
+      day = 7;
+    }
+    return day;
+}
+  
+function getFirstDayOfMonth() {
+    const date = new Date(),
+        y = date.getFullYear(),
+        m = date.getMonth();
+    let firstDay = new Date(y, m, 1);
+    return getLocalDay(firstDay) - 1;
+}
+  
+
+function getActivity(day) {
+    return activitiesJSON[day];
+};
   
 activitiesJSON = {
-    "2": 'Oolololo',
-    "15": 'trololo',
-    "22": 'Show things'
+    "9": 'Напиться!',
+    "22": 'ДР!',
+    "18": 'Другое мероприятие',
+    "26": "dfsdbfsdbd"
 }
   
 displayCalendar(new Date());
