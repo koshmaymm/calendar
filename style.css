@@ -111,8 +111,6 @@ html {
 
 tr {
     display: flex;
-    /*border-left: 1px solid #ebebeb;
-    border-right: 1px solid #ebebeb;*/
 }
 
 td, .dayNow, .monthNow {    
@@ -124,6 +122,9 @@ td, .dayNow, .monthNow {
 }
 
 .dayNow {
-    background-color: #006eca;
+    background-color: #f4f4f4;
 }
 
+.cellWithDate {
+    background-color: #c1e4ff;
+}
