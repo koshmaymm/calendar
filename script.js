@@ -29,7 +29,7 @@ function setNavValues () {
     todayDate.innerHTML = mm + " " + yy;
 }
 
-function displayCalendar(date) {
+function displayCalendar(date) {   
 
     let htmlContent = "";
     let FebNumberOfDays = "";
@@ -93,7 +93,6 @@ function displayCalendar(date) {
         daysAfterMonth++;
     }
     
-
     var calendarBody = `<table class='myTable'>`;
         calendarBody += `<tr>`;
         calendarBody += htmlContent;
@@ -120,7 +119,11 @@ function getFirstDayOfMonth() {
   
 
 function getActivity(day) {
-    return activitiesJSON[day];
+    if(activities[day]){
+        return parsDay(day);
+    } ;
+
+   
 };
 
 function fixCellsStyle () {
@@ -138,14 +141,20 @@ function fixCellsStyle () {
     
 }
 
-
-  
-activitiesJSON = {
-    "9": 'Напиться!',
-    "22": 'ДР!',
-    "18": 'Другое мероприятие',
-    "26": "dfsdbfsdbd"
+function parsDay (oneDay){
+    for (let key in activities[oneDay]) {
+        let name = activities[oneDay][0];
+        let guests = activities[oneDay].slice(1);
+        return  name + '<br />' + guests;
+    }  
 }
+  
+ activities = {
+    9: ['Напиться!','Витя Костин','Пётр Михайлов'],    
+    22: ['ДР!','Дима Молодцов'],
+    18: ['Зайти к соседке :)','Маша']    
+}
+
   
 displayCalendar(new Date());
 setNavValues();
