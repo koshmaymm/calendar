@@ -35,69 +35,65 @@ function displayCalendar(date) {
     let FebNumberOfDays = "";
     let counter = 1;
   
-    //var dateNow = new Date();
-    const month = date.getMonth();
+    let month = date.getMonth();
+    let day = date.getDate();
   
-    const nextMonth = month + 1; //+1; //Used to match up the current month with the correct start date.
-    const prevMonth = month - 1;
-    const day = date.getDate();
-    //const year = date.getFullYear();
-  
-    // names of months and week days.
-    //const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
     const dayNames = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
     const dayPerMonth = ["31", "" + FebNumberOfDays + "", "31", "30", "31", "30", "31", "31", "30", "31", "30", "31"];
   
   
-    // days in previous month and next one , and day of week.
-    // var nextDate = getFirstDayOfMonth();//new Date(nextMonth +' 1 ,'+year);
   
-    let weekdays = getFirstDayOfMonth(); //getLocalDay(nextDate);
-    let weekdays2 = weekdays
-    const numOfDays = dayPerMonth[month];
+    let weekdays = getFirstDayOfMonth();
+    let weekdays2 = weekdays;
+    let weekdaysafter = weekdays2;
+    let weekdaysbefore = dayPerMonth[month - 1];;
+    let numOfDays = dayPerMonth[month];
     let daysCounter = 0;
     let daysAfterMonth = weekdays2 + +numOfDays;
   
-    // this leave a white space for days of pervious month.
+    // this leave a white space for days of pervious month
     while (weekdays > 0) {
-      htmlContent += `<td class='monthPre'>
-      <span>${dayNames[daysCounter++]}</span>,
-      </td>`;
-
-      // used in next loop.
+      htmlContent +=    `<td class='monthPre'>
+                        <span>${dayNames[daysCounter++]}</span>
+                        <span>${++weekdaysbefore - weekdays2}</span>
+                        </td>`;
+      // used in next loop
       weekdays--;
     }
   
-    // loop to build the calander body.
+    // loop to build the calander body
     while (counter <= numOfDays) {
       let className = counter == day ? 'dayNow' : 'monthNow';
-      // When to start new line.
+      // When to start new line
       if (weekdays2 > 6) {
         weekdays2 = 0;
         htmlContent += "</tr><tr>";
       }
   
-      // if counter is current day.
-      htmlContent +=    `<td class=${className}>
-                        <span>${daysCounter < 7 ? dayNames[daysCounter++] : ''}</span>
-                        ${counter}
-                        <span class='activity'>${getActivity(counter) || ''}</span>
-                        </td>`
-  
-      weekdays2++;
-      counter++;
+      // if counter is current day
+        htmlContent +=    `<td class=${className}>
+                            <span>${daysCounter < 7 ? dayNames[daysCounter++] : ''}</span>
+                            ${counter}
+                            <span class='activity'>${getActivity(counter) || ''}</span>
+                            </td>`
+    
+        weekdays2++;
+        counter++;
     }
 
     while (daysAfterMonth < 35){
-        htmlContent += `<td></td>`;
+        htmlContent += `<td class=${'className'}>
+                        <span>${35 -weekdaysafter - +numOfDays}</span>
+                        </td>`;
         daysAfterMonth++;
+        weekdaysafter--;
     }
     
     var calendarBody = `<table class='myTable'>`;
         calendarBody += `<tr>`;
         calendarBody += htmlContent;
         calendarBody += `</tr></table>`;
-        // set the content of div .
+        // set the content of div
     document.getElementById("calendar").innerHTML = calendarBody;   
 }
   
@@ -143,19 +139,28 @@ function fixCellsStyle () {
 
 function parsDay (oneDay){
     for (let key in activities[oneDay]) {
-        let name = activities[oneDay][0];
+        let nameDate = activities[oneDay][0];
         let guests = activities[oneDay].slice(1);
-        return  name + '<br />' + guests;
+        return nameDate + '<br />' + guests;
     }  
 }
-  
- activities = {
-    9: ['Напиться!','Витя Костин','Пётр Михайлов'],    
-    22: ['ДР!','Дима Молодцов'],
-    18: ['Зайти к соседке :)','Маша']    
-}
 
-  
+
+let activities;
+(function(){
+    if (localStorage.getItem('myCalendar')) {
+        activities = JSON.parse(localStorage.getItem('myCalendar'));
+    } else {
+        activities = {
+            '9': ['Напиться!','Витя Костин','Пётр Михайлов'],    
+            '22': ['ДР!','Дима Молодцов'],
+            '18': ['Зайти к соседке :)','Маша']    
+        }
+    }
+    let myCalendar = JSON.stringify(activities);
+    localStorage.setItem('myCalendar', myCalendar);
+})();
+
 displayCalendar(new Date());
 setNavValues();
 fixCellsStyle();
